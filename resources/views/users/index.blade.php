@@ -37,8 +37,8 @@
                                     <tr class="item-{{ $user->id }}">
                                         <th scope="row">{{ ++$key }}</th>
                                         <td>{{ $user->name }}</td>
-                                        <td>{{ $user->shop_id }}</td>
-                                        <td>{{ $user->position_id }}</td>
+                                        <td>{{ $user->Shop->name }}</td>
+                                        <td>{{ $user->position->name }}</td>
                                         <td>{{ $user->phone }}</td>
                                         <td>{{ $user->email }}</td>
                                         <td>
@@ -57,9 +57,9 @@
                                         </td>
                                     </tr>
                                 @endforeach
+
                             </tbody>
                         </table>
-                        <!-- End Primary Color Bordered Table -->
                     </div>
                     {{ $users->onEachSide(5)->links() }}
                 </div>

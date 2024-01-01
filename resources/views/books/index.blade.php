@@ -35,8 +35,8 @@
                                     <tr class="item-{{ $value->id }}">
                                         <th scope="row">{{ ++$key }}</th>
                                         <td>{{ $value->name }}</td>
-                                        <td>{{ $value->category_id }}</td>
-                                        <td>{{ $value->author_id }}</td>
+                                        <td>{{ $value->Category->name }}</td>
+                                        <td>{{ $value->Author->name }}</td>
                                         <td>{{ $value->publication_date }}</td>
                                         <td>
                                             <a href="{{ route('book.edit', $value->id) }}"class="btn btn-light">

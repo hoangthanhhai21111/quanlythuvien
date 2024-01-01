@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\position;
 use App\Models\shop;
 use App\Repositories\User\UserRepository;
+// use App\Repositories\User\UserRepository;
+use App\Repositories\User\UserRepositoryInterface;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -16,16 +18,20 @@ class usersController extends Controller
      * @return \Illuminate\Http\Response
      */
     private $userRepository;
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepositoryInterface $UserRepositoryInterface)
     {
-        $this->userRepository = $userRepository;
+        $this->userRepository = $UserRepositoryInterface;
     }
-    public function index()
-    {
-        $users = $this->userRepository->all();
-        return view('users.index', compact('users'));
+    public function index(Request $request)
 
-        // return response()->json($users,200);
+    {
+        // $data = $request->all();
+        $users = $this->userRepository->all();
+        $param = [
+            'users' => $users
+        ];
+        return view('users.index', compact('users'));
+       // return response()->json($users,200);
     }
     public function create()
     {
@@ -58,10 +64,8 @@ class usersController extends Controller
     }
     public function edit($id)
     {
-        $shop = shop::all();
-        $position = position::all();
-        $user = $this->userRepository->find($id);
-        return view('users.edit', compact('user', 'position', 'shop'));
+        $param = $this->userRepository->Edit($id);
+        return view('users.edit', $param);
     }
     public function update(Request $request, $id)
     {
@@ -81,14 +85,14 @@ class usersController extends Controller
         $this->userRepository->update($data, $id);
         return redirect()->route('user.index')->with($notification);
     }
-    public function destroy($id)
-    {
-        try {
-            $this->userRepository->delete($id);
-            return response()->json('ok', 200);
-        } catch (Exception $e) {
-            Log::error(' loi' . $e->getMessage() . ' ở file ' . $e->getFile() . ' dòng ' . $e->getLine());
-            return response()->json('errors', 500);
-        }
-    }
+    // public function destroy($id)
+    // {
+    //     try {
+    //         $this->userRepository->delete($id);
+    //         return response()->json('ok', 200);
+    //     } catch (Exception $e) {
+    //         Log::error(' loi' . $e->getMessage() . ' ở file ' . $e->getFile() . ' dòng ' . $e->getLine());
+    //         return response()->json('errors', 500);
+    //     }
+    // }
 }

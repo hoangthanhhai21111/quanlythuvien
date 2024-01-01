@@ -18,7 +18,9 @@ class BooksController extends Controller
         $this->BookRepository = $BookRepository;
     }
     public function index()
+
     {
+        // abort(404);
         $book = $this->BookRepository->all();
         return view('books.index', compact('book'));
     }
@@ -30,14 +32,14 @@ class BooksController extends Controller
     }
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email',
-            'phone' => 'required',
-            'day_of_birth' => 'required',
-            'address' => 'required',
-            'phone' => 'required'
-        ]);
+        // $request->validate([
+        //     'name' => 'required',
+        //     'email' => 'required|email',
+        //     'phone' => 'required',
+        //     'day_of_birth' => 'required',
+        //     'address' => 'required',
+        //     'phone' => 'required'
+        // ]);
         try {
         $book = new Book();
         $book->name = $request->name;
